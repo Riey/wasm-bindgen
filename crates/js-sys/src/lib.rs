@@ -4142,6 +4142,18 @@ impl fmt::Debug for JsString {
     }
 }
 
+impl fmt::Write for JsString {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        *self = self.concat(&Self::from(s));
+        Ok(())
+    }
+
+    fn write_char(&mut self, c: char) -> fmt::Result {
+        *self = self.concat(&Self::from(c));
+        Ok(())
+    }
+}
+
 // Symbol
 #[wasm_bindgen]
 extern "C" {
